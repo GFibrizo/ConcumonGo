@@ -1,6 +1,7 @@
 -- Main.hs, final code
 module Main where
 
+import qualified ConcumonGo (main)
 import qualified Threads (main)
 import qualified MVars (main)
 import qualified MVarSharedState (main)
@@ -18,6 +19,7 @@ main = do
     example "Channels" Channels.main
     example "Duplicating channels" DuplicatingChannels.main
     example "Jugadores arrivando" Entrada.main
+    example "Cazar concumones interactivo" ConcumonGo.main
 
 example title code = do
     putStrLn ("~~~ Running " ++ title ++ " example! ~~~")

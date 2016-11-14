@@ -15,7 +15,7 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-  exposed-modules:     Lib, Threads, MVars, MVarSharedState, Channels, DuplicatingChannels, Entrada, Jugador
+  exposed-modules:     Lib, Threads, MVars, MVarSharedState, Channels, DuplicatingChannels, Entrada, Jugador, ConcumonGo
   build-depends:       base >= 4.7 && < 5
                      , parsec
                      , stm >= 2.3
