@@ -72,6 +72,13 @@ movePlayer player input = do
 	Player coord' (pScore player)
 
 
+increaseScore :: Player -> Grid -> Player
+increaseScore player grid = do
+	if (hasConcumon grid (pCoord player))
+	then Player (pCoord player) (1 + pScore player)
+	else player
+
+
 isNotAtCoordinate :: Coordinates -> Concumon -> Bool
 isNotAtCoordinate coord concumon = cCoord concumon /= coord 
 
@@ -79,7 +86,8 @@ isNotAtCoordinate coord concumon = cCoord concumon /= coord
 modifyGrid :: Grid -> Input -> Grid
 modifyGrid grid input = do
 	let player' = movePlayer (gPlayer grid) input
-	Grid (filter (isNotAtCoordinate (pCoord player')) (gConcumons grid)) player'
+	let player'' = increaseScore player' grid
+	Grid (filter (isNotAtCoordinate (pCoord player'')) (gConcumons grid)) player''
 
 
 concumonIsAt :: Concumon -> Coordinates -> Bool
@@ -87,6 +95,7 @@ concumonIsAt concumon coord = (coord == cCoord concumon)
 
 
 someConcumonIsAt :: [Concumon] -> Coordinates -> Bool
+someConcumonIsAt [] a = False
 someConcumonIsAt concumons coord = concumonIsAt (head concumons) coord || someConcumonIsAt (tail concumons) coord
 
 
@@ -99,7 +108,7 @@ main = gameLoop =<< loadLevel
 
 
 gameLoop grid = do
+	displayGrid grid
 	input <- getInput
 	let grid' = modifyGrid grid input
-	displayGrid grid'
 	gameLoop grid'
